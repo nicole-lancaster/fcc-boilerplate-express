@@ -24,9 +24,18 @@ const logger = (req, res, next) => {
   console.log(`${method} ${path} - ${ipAddress}`);
   next();
 };
+const getTime = (req, res, next) => {
+  req.time = new Date().toString();
+  next();
+};
+const sendTime = (req, res) => {
+  return res.send({ time: req.time });
+};
+
 app.use(logger);
 app.use("/public", express.static(`${__dirname}/public`));
 app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
+app.get("/now", getTime, sendTime);
 
 module.exports = app;
