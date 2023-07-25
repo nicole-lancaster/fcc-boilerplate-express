@@ -1,6 +1,12 @@
-let express = require('express');
+let express = require("express");
 let app = express();
 
-console.log("Hello World!")
+console.log("Hello World!");
 
- module.exports = app;
+app.get("/", expressGreeting);
+
+function expressGreeting(req, res) {
+  res.send("Hello Express");
+}
+
+module.exports = app;
