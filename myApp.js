@@ -32,10 +32,16 @@ const sendTime = (req, res) => {
   return res.send({ time: req.time });
 };
 
+const getWordParams = (req, res, next) => {
+  req.params = word;
+  return res.send({ echo: word });
+};
+
 app.use(logger);
 app.use("/public", express.static(`${__dirname}/public`));
 app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
 app.get("/now", getTime, sendTime);
+app.get("/:word/echo", getWordParams);
 
 module.exports = app;
