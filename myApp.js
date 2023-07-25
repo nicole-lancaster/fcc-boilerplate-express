@@ -21,7 +21,7 @@ const logger = (req, res, next) => {
   const path = req.path;
   const ipAddress = req.ip;
 
-  console.log(method, path, ipAddress);
+  console.log(`${method} ${path} - ${ipAddress}`);
   next();
 };
 app.use(logger);
