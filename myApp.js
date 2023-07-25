@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
 require("dotenv").config();
+const bodyParser = require("body-parser");
 
 const absolutePath = `${__dirname}/views/index.html`;
 
@@ -38,18 +39,18 @@ const getWordParams = (req, res, next) => {
 };
 
 const getNameQueries = (req, res, next) => {
-  console.log(req.query);
   const firstName = req.query.first;
   const lastName = req.query.last;
   return res.send({ name: `${firstName} ${lastName}` });
 };
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger);
 app.use("/public", express.static(`${__dirname}/public`));
 app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
 app.get("/now", getTime, sendTime);
 app.get("/:word/echo", getWordParams);
-app.route("/name").get(getNameQueries);
+app.route("/name").get(getNameQueries).post(bodyParser.json());
 
 module.exports = app;
