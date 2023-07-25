@@ -37,11 +37,19 @@ const getWordParams = (req, res, next) => {
   return res.send({ echo: word });
 };
 
+const getNameQueries = (req, res, next) => {
+  console.log(req.query);
+  const firstName = req.query.first;
+  const lastName = req.query.last;
+  return res.send({ name: `${firstName} ${lastName}` });
+};
+
 app.use(logger);
 app.use("/public", express.static(`${__dirname}/public`));
 app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
 app.get("/now", getTime, sendTime);
 app.get("/:word/echo", getWordParams);
+app.route("/name").get(getNameQueries);
 
 module.exports = app;
