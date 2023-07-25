@@ -16,7 +16,15 @@ const helloJson = (req, res) => {
     return res.send({ message: jsonMsg });
   }
 };
+const logger = (req, res, next) => {
+  const method = req.method;
+  const path = req.path;
+  const ipAddress = req.ip;
 
+  console.log(method, path, ipAddress);
+  next();
+};
+app.use("/", logger);
 app.use("/public", express.static(`${__dirname}/public`));
 app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
