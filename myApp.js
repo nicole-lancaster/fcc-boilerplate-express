@@ -24,7 +24,7 @@ const logger = (req, res, next) => {
   console.log(method, path, ipAddress);
   next();
 };
-app.use("/", logger);
+app.use(logger);
 app.use("/public", express.static(`${__dirname}/public`));
 app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
