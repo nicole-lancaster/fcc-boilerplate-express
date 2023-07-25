@@ -44,6 +44,13 @@ const getNameQueries = (req, res, next) => {
   return res.send({ name: `${firstName} ${lastName}` });
 };
 
+const postNameQueries = (req, res, next) => {
+  const firstName = req.body.first;
+  const lastName = req.body.last;
+  const responseBody = { name: `${firstName} ${lastName}` };
+  return res.send(responseBody);
+};
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger);
 app.use("/public", express.static(`${__dirname}/public`));
@@ -51,6 +58,6 @@ app.get("/", serveHtmlPath);
 app.get("/json", helloJson);
 app.get("/now", getTime, sendTime);
 app.get("/:word/echo", getWordParams);
-app.route("/name").get(getNameQueries).post(bodyParser.json());
+app.route("/name").get(getNameQueries).post(bodyParser.json(), postNameQueries);
 
 module.exports = app;
