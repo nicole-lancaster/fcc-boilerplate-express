@@ -1,12 +1,12 @@
 let express = require("express");
 let app = express();
 
-console.log("Hello World!");
+const absolutePath = `${__dirname}/views/index.html`;
 
-const expressGreeting = (req, res) => {
-  return res.send("Hello Express");
-}
+const serveHtmlPath = (req, res) => {
+  return res.sendFile(absolutePath);
+};
 
-app.get("/", expressGreeting);
+app.get("/", serveHtmlPath);
 
 module.exports = app;
