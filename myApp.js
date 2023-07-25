@@ -33,7 +33,7 @@ const sendTime = (req, res) => {
 };
 
 const getWordParams = (req, res, next) => {
-  req.params = {word};
+  const word = req.params.word;
   return res.send({ echo: word });
 };
 
